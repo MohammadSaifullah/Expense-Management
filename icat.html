@@ -1,0 +1,143 @@
+<html>
+
+<head>
+    <title>
+        INCOME CATAGORY
+    </title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url(https://www.teahub.io/photos/full/1-13301_laptop-wallpaper.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+            margin: 0px;
+        }
+
+        .name {
+            width: 250px;
+            display: block;
+            margin-left: 15px;
+            ;
+            margin-top: 6%;
+            height: 35px;
+            z-index: 1;
+            border-radius: 17px;
+            box-shadow: lavender 2px 2px 2px;
+            border: lavender 1px solid;
+            font-weight: bolder;
+        }
+
+        .amt {
+            width: 250px;
+            display: block;
+            margin-left: 15px;
+            ;
+            height: 35px;
+            z-index: 1;
+            border-radius: 17px;
+            box-shadow: lavender 2px 2px 2px;
+            border: lavender 1px solid;
+        }
+
+        h1 {
+            box-sizing: border-box;
+            margin: 0px;
+            padding-top: 30px;
+            text-align: center;
+            background-color: white;
+            color: navy;
+            height: 100px;
+            text-size-adjust: 100px;
+        }
+
+        #btn {
+            color: dimgray;
+            background-color: lightcyan;
+            margin-left: 150px;
+            margin-top: -5px;
+            border-radius: 15px;
+            box-shadow: lightcyan 3px 3px 3px;
+            border: lightcyan solid 1px;
+        }
+
+        table {
+            color: white;
+            background-color: brown;
+            border-collapse: collapse;
+        }
+    </style>
+    <script>
+        var incomeList = [];
+
+        function loadTable() {
+            let table = document.querySelector('.myTable');
+            // Delete old records
+            let trList = table.querySelectorAll('tr');
+            for (let i = 1; i < trList.length; i++) {
+                let trEl = trList[i];
+                trEl.parentElement.removeChild(trEl);
+            }
+
+            // Insert new Records
+            for (let i = 0; i < incomeList.length; i++) {
+                let x = incomeList[i];
+                let colName = document.createElement('td');
+                let colAmt = document.createElement('td');
+                colName.innerText = x.name;
+                colAmt.innerText = x.amt;
+                let rowEl = document.createElement('tr');
+                rowEl.appendChild(colName);
+                rowEl.appendChild(colAmt);
+                table.appendChild(rowEl);
+            }
+        }
+
+        function addNew() {
+            let nameEl = document.querySelector('.name');
+            let amtEl = document.querySelector('.amt');
+            let x = {
+                name: nameEl.value,
+                amt: amtEl.value
+            };
+            incomeList.push(x);
+            loadTable();
+            let list = JSON.stringify(incomeList);
+            localStorage.setItem("inc", list);
+        }
+        function loadData() {
+            let a = localStorage.getItem("inc");
+            if (a) {
+                incomeList = JSON.parse(a);
+            }
+        }
+        function total() {
+            incomeList.reduce(sum)
+            function sum(a, b) {
+                alert(+a.amt + +b.amt);
+            }
+        }
+    </script>
+</head>
+
+<body onload="loadData();loadTable()">
+    <h1>INCOME CATAGORIES</h1>
+    <input type="text" class="name" style="background-color: lavender;color: darkcyan;">
+    <br><br>
+    AMOUNT: <br><input class="amt" type="number" style="background-color: lavender;color: darkcyan;">
+    <br><br>
+    <button id="btn" onclick="addNew()">ADD INCOME</button><br>
+    <button id="tot" onclick="total()">total</button><br>
+    <br>
+    <table class="myTable" border="1">
+        <tr class="head">
+            <td>INCOME</td>
+            <td>AMOUNT</td>
+        </tr>
+
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="dashboard.css">
+    <script>
+        function getData() {
+
+            var a = localStorage.getItem("inc");
+            document.querySelector(".myTable").innerHTML = a;
+        }
+
+        function getExp() {
+
+            var b = localStorage.getItem("exp");
+            document.querySelector(".myTable1").innerHTML = b;
+        }
+
+        function geTrans() {
+
+            var c = localStorage.getItem("trans");
+            document.querySelector(".myTable2").innerHTML = c;
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>DASHBOARD</h1><br>
+    <div class="expandin">
+        <ul>
+            <div class="expns">
+                <li><a href="ecat.html">EXPENSE CATAGORIES</a></li>
+            </div>
+            <div class="incom">
+                <li><a href="icat.html">INCOME CATAGORIES</a></li>
+            </div>
+            <div class="trns">
+                <li><a href="trans.html">TRANSACTION</a></li>
+            </div>
+    </div>
+    </ul>
+    </div>
+    <br>
+    <button class="buttin" onclick="getData()">Income</button>
+    <button class="butexp" onclick="getExp()">Expense</button>
+    <button class="buttrans" onclick="geTrans()">Transactions</button><br><br>
+    <table class="myTable" border="5">
+        <tr class="head">
+            <td>INCOME</td>
+            <td>AMOUNT</td>
+        </tr>
+    </table><br><br>
+    <table class="myTable1" border="5">
+        <tr class="head">
+            <td>INCOME</td>
+            <td>AMOUNT</td>
+        </tr>
+    </table><br><br>
+    <table class="myTable2" border="5">
+        <tr class="head">
+            <td>TYPE</td>
+            <td>INCOME</td>
+            <td>AMOUNT</td>
+            <td>DATE</td>
+
+        </tr>
+    </table>
+    <style>
+        table {
+            background-color: aliceblue;
+            font-weight: bold;
+        }
+    </style>
+</body>
+
+</html>

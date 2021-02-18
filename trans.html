@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <title>TRANSACTION</title>
+    <style>
+        h1 {
+            box-sizing: border-box;
+            margin: 0px;
+            padding-top: 30px;
+            text-align: center;
+            background-color: navy;
+            color: white;
+            height: 100px;
+            text-size-adjust: 100px;
+        }
+
+        body {
+            background-image: url(https://2.bp.blogspot.com/-14UIMFZndRg/WBNxvVUzT7I/AAAAAAAAOJU/OuQa2Xdstt0cDZCctdjAxMEl2TLomACXwCLcB/s1600/White%2BBackground%2BWallpapers%2B9.jpg);
+        }
+
+        table {
+            border-collapse: collapse;
+            background-color: black;
+            color: wheat;
+        }
+    </style>
+    <script>
+        var expenseList = [];
+
+        function loadTable() {
+            let table = document.querySelector('.myTable');
+            // Delete old records
+            let trList = table.querySelectorAll('tr');
+            for (let i = 1; i < trList.length; i++) {
+                let trEl = trList[i];
+                trEl.parentElement.removeChild(trEl);
+            }
+
+            // Insert new Records
+            for (let i = 0; i < expenseList.length; i++) {
+                let x = expenseList[i];
+                let colTyp = document.createElement('td');
+                let colName = document.createElement('td');
+                let colAmt = document.createElement('td');
+                let colDate = document.createElement('td');
+                colTyp.innerText = x.typ;
+                colName.innerText = x.name;
+                colAmt.innerText = x.amt;
+                colDate.innerText = x.date;
+                let rowEl = document.createElement('tr');
+                rowEl.appendChild(colTyp);
+                rowEl.appendChild(colName);
+                rowEl.appendChild(colAmt);
+                rowEl.appendChild(colDate);
+                table.appendChild(rowEl);
+            }
+        }
+
+        function addTrans() {
+            let typEl = document.querySelector('.typ');
+            let nameEl = document.querySelector('.name');
+            let amtEl = document.querySelector('.amt');
+            let dateEl = document.querySelector('.date');
+            let x = {
+                typ: typEl.value,
+                name: nameEl.value,
+                amt: amtEl.value,
+                date: dateEl.value
+
+            };
+            expenseList.push(x);
+            loadTable();
+            let list = JSON.stringify(expenseList);
+            localStorage.setItem("trans", list);
+        }
+        function loadData() {
+            let a = localStorage.getItem("trans");
+            if (a) {
+                expenseList = JSON.parse(a);
+            }
+        }
+        function total() {
+            expenseList.reduce(sum)
+            function sum(a, b) {
+                alert(+a.amt + +b.amt);
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>TRANSACTION</h1><br>
+    <br>
+    <label for="type">TYPE:</label>
+
+    <select id="type" class="typ">
+        <option value="INCOME">INCOME</option>
+        <option value="EXPENSE">EXPENSE</option>
+    </select><br><br>
+    Name: <br><input type="text" id="txt" class="name"><br><br>
+    Amount: <br><input type="number" class="amt"><br><br>
+    DATE: <br><input type="date" class="date"><br><br>
+    <button onclick="addTrans()">ADD</button>
+    <button id="tot" onclick="total()">total</button><br>
+    <br><br>
+    <table border="1" class="myTable">
+        <tr>
+            <td>TYPE</td>
+            <td>NAME</td>
+            <td>AMOUNT</td>
+            <td>DATE</td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+ul{
+    color: white;
+    text-align: center;
+    background-color: navy;
+    overflow: hidden;
+    list-style-type: none;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+li{
+    float: left;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: space-evenly;
+}
+li a{
+    color: whitesmoke;
+    display: block;
+    text-decoration: none;
+    padding: 50px;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: space-evenly;
+
+}
+h1{
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
+}
+body{
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-image: url("https://c4.wallpaperflare.com/wallpaper/790/790/459/credit-cards-expenses-debit-cards-savings-wallpaper-preview.jpg");
+}

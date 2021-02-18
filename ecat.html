@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <title>
+        EXPENSE CATAGORY
+    </title>
+    <style>
+        * {
+            box-sizing: border-box;
+
+        }
+
+        body {
+            background-color: white;
+            background-attachment: fixed;
+            background-size: cover;
+            margin: 0px;
+        }
+
+        #addbox {
+            width: 250px;
+            display: block;
+            height: 35px;
+            z-index: 1;
+        }
+
+        h1 {
+            box-sizing: border-box;
+            margin: 0px;
+            padding-top: 30px;
+            text-align: center;
+            background-color: navy;
+            color: white;
+            height: 100px;
+            text-size-adjust: 100px;
+        }
+
+        #btn {
+            color: honeydew;
+            background-color: darkblue;
+            margin-left: 150px;
+            margin-top: -5px;
+        }
+    </style>
+
+    <script>
+        var expenseList = [];
+
+        function loadTable() {
+            let table = document.querySelector('.myTable');
+            // Delete old records
+            let trList = table.querySelectorAll('tr');
+            for (let i = 1; i < trList.length; i++) {
+                let trEl = trList[i];
+                trEl.parentElement.removeChild(trEl);
+            }
+
+            // Insert new Records
+            for (let i = 0; i < expenseList.length; i++) {
+                let x = expenseList[i];
+                let colName = document.createElement('td');
+                let colAmt = document.createElement('td');
+                colName.innerText = x.name;
+                colAmt.innerText = x.amt;
+                let rowEl = document.createElement('tr');
+                rowEl.appendChild(colName);
+                rowEl.appendChild(colAmt);
+                table.appendChild(rowEl);
+            }
+        }
+
+        function addNew() {
+            let nameEl = document.querySelector('.name');
+            let amtEl = document.querySelector('.amt');
+            let x = {
+                name: nameEl.value,
+                amt: amtEl.value
+            };
+            expenseList.push(x);
+            loadTable();
+            let list = JSON.stringify(expenseList);
+            localStorage.setItem("exp", list);
+        }
+        function loadData() {
+            let a = localStorage.getItem("exp");
+            if (a) {
+                expenseList = JSON.parse(a);
+            }
+        }
+        function total() {
+            expenseList.reduce(sum);
+            function sum(a, b) {
+                alert(+a.amt + +b.amt);
+            }
+        }
+    </script>
+</head>
+
+<body onload="loadData();loadTable()">
+    <h1>EXPENSE CATAGORIES</h1>
+    <input type="text" class="name" style="background-color: lavender;color: darkcyan;">
+    <br><br>
+    AMOUNT: <br><input class="amt" type="number" style="background-color: lavender;color: darkcyan;">
+    <br><br>
+    <button id="btn" onclick="addNew()">ADD INCOME</button><br>
+    <br>
+    <button id="tot" onclick="total()">total</button><br>
+    <table class="myTable" border="1">
+        <tr class="head">
+            <td>INCOME</td>
+            <td>AMOUNT</td>
+        </tr>
+
+    </table>
+</body>
+
+</html>

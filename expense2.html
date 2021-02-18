@@ -1,0 +1,73 @@
+<html>
+
+<head>
+
+    <title>Expense Management</title>
+</head>
+
+<body>
+    <div class="container" style="padding: 30px;">
+        <h1 align="center" class="title" style="text-transform: uppercase;color: ]black;">Expense Management Software
+        </h1>
+
+        <hr>
+        <h2>Income</h2>
+
+        <input type="number" placeholder="Enter Amount!" id="money">
+        <button onclick="addIncome()">Add Income</button>
+        <hr>
+        <h2>Expenses</h2>
+        <label style="padding: 5px;" class="label is-success">Enter Description:</label>
+        <input type="text" placeholder="Enter Name of Expense" id="expenseName">
+        <input type="number" placeholder="Enter Amount!" id="expenseAmount">
+        <button onclick="addExpense()">Add Expense</button>
+        <h2>
+            Total Income: <span id="totalIncome">0</span>
+        </h2>
+        <h2>
+            Balance Amount: <span id="currentBalance">0</span>
+        </h2>
+        <h2>Given Expenses</h2>
+        <div class="is-size-5" class="has-text-weight-medium" id="addedExpenses"></div>
+        <hr>
+    </div>
+    <script>
+        function addIncome() {
+            var totalIncome = parseInt(document.getElementById("totalIncome").innerHTML);
+            var currentBalance = parseInt(document.getElementById("currentBalance").innerHTML);
+            var money = parseInt(document.getElementById("money").value);
+            if (money == "" || isNaN(money)) {
+                alert("Please Enter Positive Income");
+            }
+            else {
+                totalIncome = totalIncome + money;
+                currentBalance = currentBalance + money;
+                document.getElementById("totalIncome").innerHTML = totalIncome;
+                document.getElementById("currentBalance").innerHTML = currentBalance;
+            }
+        }
+        function addExpense() {
+            var currentBalance = parseInt(document.getElementById("currentBalance").innerHTML);
+            var expenseName = document.getElementById("expenseName").value;
+            var expenseAmount = parseInt(document.getElementById("expenseAmount").value);
+            if (expenseName.length == "") {
+                alert("Please Enter Expense Name");
+            }
+            else if (expenseAmount == "" || isNaN(expenseAmount)) {
+                alert("Please Enter Expense Amount")
+            }
+            else if (expenseAmount <= currentBalance) {
+                currentBalance = currentBalance - expenseAmount;
+                document.getElementById("currentBalance").innerHTML = currentBalance;
+                var p = document.createElement("p");
+                p.innerHTML = "Expense Name: " + expenseName + "<br>" + "Expense Amount: " + expenseAmount;
+                document.getElementById("addedExpenses").appendChild(p);
+            }
+            else {
+                alert("Added Expense Amount is higher than your current Balance!")
+            }
+        }
+    </script>
+</body>
+
+</html>
